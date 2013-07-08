@@ -1,0 +1,30 @@
+<?php
+$this->breadcrumbs=array(
+  'Jadwal'=>array('index'),
+	'ImportExcel',
+);
+
+$this->menu=array(
+		array('label'=>'List Jadwal','icon'=>'icon-list-alt', 'url'=>array('index')),
+		array('label'=>'Manage Jadwal', 'url'=>array('admin')),
+		array('label'=>'Create Jadwal','icon'=>'icon-plus', 'url'=>array('create')),
+		array('label'=>'Template Excel', 'icon'=>'icon-download', 'url'=>Yii::app()->controller->createUrl('GenerateExcel'), 'linkOptions'=>array('target'=>'_blank')),
+);
+?>
+<?php if (!empty($rowExist)): ?>
+<h1>Terdapat jadwal Ganda</h1>
+<?php foreach($rowExist as $row): ?>
+<p><?php echo $row['idwaktu'] ?> - <?php echo $row['idruang'] ?> - <?php echo $row['th_ajar'] ?> - <?php echo $row['semester'] ?></p>
+<?php endforeach; ?>
+<?php endif ?>
+<?php $box = $this->beginWidget('bootstrap.widgets.TbBox', array(
+	'title' => 'UNGGAH JADWAL (.xls)',
+	'headerIcon' => 'icon-upload',
+	'htmlOptions'=>array('class'=>'inline'),
+	// when displaying a table, if we include bootstra-widget-table class
+	// the table will be 0-padding to the box
+));?>
+
+<?php echo $this->renderPartial('_import', array('model'=>$model)); ?>
+
+<?php $this->endWidget(); ?>
